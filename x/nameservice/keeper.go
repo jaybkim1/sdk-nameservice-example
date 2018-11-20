@@ -6,6 +6,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/bank"
 )
 
+// TEST
 // Keeper - handlers sets/gets of custom variables for your module
 type Keeper struct {
 	coinKeeper bank.Keeper
