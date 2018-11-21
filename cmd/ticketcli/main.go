@@ -15,7 +15,8 @@ import (
 	app "github.com/jaybkim1/sdk-nameservice-example"
 
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
-	ticketservicecmd "github.com/workspace/sdk-nameservice-example/x/ticketservice/client/cli"
+	faucetcmd "github.com/jaybkim1/sdk-nameservice-example/x/faucet/client/cli"
+	ticketservicecmd "github.com/jaybkim1/sdk-nameservice-example/x/ticketservice/client/cli"
 )
 
 const storeAcc = "acc"
