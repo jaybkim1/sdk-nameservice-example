@@ -27,40 +27,40 @@ func NewKeeper(coinKeeper bank.Keeper, namesStoreKey sdk.StoreKey, ownersStoreKe
 	}
 }
 
-// GetTrend - returns the current cool trend
-func (k Keeper) ResolveName(ctx sdk.Context, name string) string {
+// GetTicket - gets the ticket and its value
+func (k Keeper) ResolveTicket(ctx sdk.Context, ticket string) string {
 	store := ctx.KVStore(k.namesStoreKey)
-	bz := store.Get([]byte(name))
+	bz := store.Get([]byte(ticket))
 	return string(bz)
 }
 
-// GetTrend - returns the current cool trend
-func (k Keeper) SetName(ctx sdk.Context, name string, value string) {
+// SetTicket - sets the ticket and its value
+func (k Keeper) SetTicket(ctx sdk.Context, ticket string, value string) {
 	store := ctx.KVStore(k.namesStoreKey)
-	store.Set([]byte(name), []byte(value))
+	store.Set([]byte(ticket), []byte(value))
 }
 
-// HasOwner - returns whether or not the name already has an owner
-func (k Keeper) HasOwner(ctx sdk.Context, name string) bool {
+// GetOwner - gets the current owner of a ticket
+func (k Keeper) GetOwner(ctx sdk.Context, ticket string) sdk.AccAddress {
 	store := ctx.KVStore(k.ownersStoreKey)
-	bz := store.Get([]byte(name))
-	return bz != nil
-}
-
-// GetOwner - get the current owner of a name
-func (k Keeper) GetOwner(ctx sdk.Context, name string) sdk.AccAddress {
-	store := ctx.KVStore(k.ownersStoreKey)
-	bz := store.Get([]byte(name))
+	bz := store.Get([]byte(ticket))
 	return bz
 }
 
-// SetOwner - sets the current owner of a name
-func (k Keeper) SetOwner(ctx sdk.Context, name string, owner sdk.AccAddress) {
+// HasOwner - returns whether or not the ticket already has an owner
+func (k Keeper) HasOwner(ctx sdk.Context, ticket string) bool {
 	store := ctx.KVStore(k.ownersStoreKey)
-	store.Set([]byte(name), owner)
+	bz := store.Get([]byte(ticket))
+	return bz != nil
 }
 
-// GetPrice - gets the current price of a name.  If price doesn't exist yet, set to 1steak.
+// SetOwner - sets the current owner of a ticket
+func (k Keeper) SetOwner(ctx sdk.Context, ticket string, owner sdk.AccAddress) {
+	store := ctx.KVStore(k.ownersStoreKey)
+	store.Set([]byte(ticket), owner)
+}
+
+// GetPrice - gets the current price of a ticket.  If price doesn't exist yet, set to 1steak.
 func (k Keeper) GetPrice(ctx sdk.Context, name string) sdk.Coins {
 	if !k.HasOwner(ctx, name) {
 		return sdk.Coins{sdk.NewInt64Coin("mycoin", 1)}
@@ -72,7 +72,7 @@ func (k Keeper) GetPrice(ctx sdk.Context, name string) sdk.Coins {
 	return price
 }
 
-// SetPrice - sets the current price of a name
+// SetPrice - sets the current price of a ticket
 func (k Keeper) SetPrice(ctx sdk.Context, name string, price sdk.Coins) {
 	store := ctx.KVStore(k.pricesStoreKey)
 	store.Set([]byte(name), k.cdc.MustMarshalBinary(price))
