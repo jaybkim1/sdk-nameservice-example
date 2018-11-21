@@ -11,7 +11,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/workspace/sdk-nameservice/x/ticketservice"
+	"github.com/jaybkim1/sdk-nameservice-example/x/ticketservice"
 )
 
 const (
@@ -65,11 +65,11 @@ func NewTicketApp(logger log.Logger, db dbm.DB) *TicketApp {
 	)
 
 	app.Router().
-		AddRoute("ticketservice", nameservice.NewHandler(app.ticketKeeper)).
+		AddRoute("ticketservice", ticketservice.NewHandler(app.ticketKeeper)).
 		AddRoute("bank", bank.NewHandler(app.bankKeeper))
 
 	app.QueryRouter().
-		AddRoute("ticketservice", nameservice.NewQuerier(app.ticketKeeper))
+		AddRoute("ticketservice", ticketservice.NewQuerier(app.ticketKeeper))
 
 	app.SetInitChainer(app.initChainer)
 

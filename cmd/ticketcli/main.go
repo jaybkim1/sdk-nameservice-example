@@ -12,10 +12,10 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/rpc"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 
-	app "github.com/sunnya97/sdk-nameservice-example"
+	app "github.com/jaybkim1/sdk-nameservice-example-example/x/ticketservice"
 
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
-	nameservicecmd "github.com/sunnya97/sdk-nameservice-example/x/nameservice/client/cli"
+	ticketservicecmd "github.com/workspace/sdk-nameservice-example/x/ticketservice/client/cli"
 )
 
 const storeAcc = "acc"
@@ -52,8 +52,8 @@ func main() {
 	queryCmd.AddCommand(client.LineBreak)
 	queryCmd.AddCommand(client.GetCommands(
 		authcmd.GetAccountCmd(storeAcc, cdc, authcmd.GetAccountDecoder(cdc)),
-		nameservicecmd.GetCmdResolveName("nameservice", cdc),
-		nameservicecmd.GetCmdWhois("nameservice", cdc),
+		ticketservicecmd.GetCmdResolveTicket("ticketservice", cdc),
+		ticketservicecmd.GetCmdWhois("ticketservice", cdc),
 	)...)
 
 	txCmd := &cobra.Command{
@@ -62,8 +62,8 @@ func main() {
 	}
 
 	txCmd.AddCommand(client.PostCommands(
-		nameservicecmd.GetCmdBuyName(cdc),
-		nameservicecmd.GetCmdSetName(cdc),
+		ticketservicecmd.GetCmdBuyTicket(cdc),
+		ticketservicecmd.GetCmdSetTicket(cdc),
 	)...)
 
 	rootCmd.AddCommand(
@@ -76,7 +76,7 @@ func main() {
 		keys.Commands(),
 	)
 
-	executor := cli.PrepareMainCmd(rootCmd, "NS", DefaultCLIHome)
+	executor := cli.PrepareMainCmd(rootCmd, "TC", DefaultCLIHome)
 	err := executor.Execute()
 	if err != nil {
 		panic(err)

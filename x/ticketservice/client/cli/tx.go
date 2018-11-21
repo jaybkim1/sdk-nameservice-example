@@ -9,7 +9,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
 
-	"github.com/workspace/sdk-nameservice/x/ticketservice"
+	"github.com/workspace/sdk-nameservice-example/x/ticketservice"
 )
 
 const (

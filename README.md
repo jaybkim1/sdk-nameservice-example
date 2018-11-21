@@ -892,10 +892,10 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/rpc"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 
-	app "github.com/sunnya97/sdk-nameservice-example"
+	app sdk-nameservice-example
 
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
-	nameservicecmd "github.com/sunnya97/sdk-nameservice-example/x/nameservice/client/cli"
+	nameservicecmd sdk-nameservice-example
 )
 
 const storeAcc = "acc"

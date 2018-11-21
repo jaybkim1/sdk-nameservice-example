@@ -15,7 +15,8 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/server"
 
-	app "github.com/sunnya97/sdk-nameservice-example"
+	app "github.com/jaybkim1/sdk-nameservice-example-example/x/ticketservice"
+
 )
 
 var DefaultNodeHome = os.ExpandEnv("$HOME/.ticketd")
