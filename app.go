@@ -11,14 +11,14 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/sunnya97/sdk-nameservice-example/x/nameservice"
+	"github.com/workspace/sdk-nameservice/x/ticketservice"
 )
 
 const (
-	appName = "Nameshake"
+	appName = "Ticket"
 )
 
-type NameshakeApp struct {
+type TicketApp struct {
 	*bam.BaseApp
 	cdc *codec.Codec
 
@@ -30,14 +30,14 @@ type NameshakeApp struct {
 
 	accountMapper auth.AccountMapper
 	bankKeeper    bank.Keeper
-	nsKeeper      nameservice.Keeper
+	ticketKeeper      ticketservice.Keeper
 }
 
-func NewNameshakeApp(logger log.Logger, db dbm.DB) *NameshakeApp {
+func NewTicketApp(logger log.Logger, db dbm.DB) *TicketApp {
 	cdc := MakeCodec()
 	bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(cdc))
 
-	var app = &NameshakeApp{
+	var app = &TicketApp{
 		BaseApp: bApp,
 		cdc:     cdc,
 
@@ -56,7 +56,7 @@ func NewNameshakeApp(logger log.Logger, db dbm.DB) *NameshakeApp {
 
 	app.bankKeeper = bank.NewBaseKeeper(app.accountMapper)
 
-	app.nsKeeper = nameservice.NewKeeper(
+	app.ticketKeeper = ticketservice.NewKeeper(
 		app.bankKeeper,
 		app.keyNSnames,
 		app.keyNSowners,
@@ -65,11 +65,11 @@ func NewNameshakeApp(logger log.Logger, db dbm.DB) *NameshakeApp {
 	)
 
 	app.Router().
-		AddRoute("nameservice", nameservice.NewHandler(app.nsKeeper)).
+		AddRoute("ticketservice", nameservice.NewHandler(app.ticketKeeper)).
 		AddRoute("bank", bank.NewHandler(app.bankKeeper))
 
 	app.QueryRouter().
-		AddRoute("nameservice", nameservice.NewQuerier(app.nsKeeper))
+		AddRoute("ticketservice", nameservice.NewQuerier(app.ticketKeeper))
 
 	app.SetInitChainer(app.initChainer)
 
@@ -93,7 +93,7 @@ type GenesisState struct {
 	Accounts []auth.BaseAccount `json:"accounts"`
 }
 
-func (app *NameshakeApp) initChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
+func (app *TicketApp) initChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 	stateJSON := req.AppStateBytes
 
 	genesisState := new(GenesisState)

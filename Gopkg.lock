@@ -328,16 +328,6 @@
 
 [[projects]]
   branch = "master"
-  name = "github.com/sunnya97/sdk-nameservice-example"
-  packages = [
-    ".",
-    "x/nameservice",
-    "x/nameservice/client/cli"
-  ]
-  revision = "efb57c67ef75f28f00187b982e2629af463a3867"
-
-[[projects]]
-  branch = "master"
   name = "github.com/syndtr/goleveldb"
   packages = [
     "leveldb",
