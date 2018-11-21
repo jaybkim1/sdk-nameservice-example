@@ -10,17 +10,17 @@ import (
 type Keeper struct {
 	coinKeeper bank.Keeper
 
-	namesStoreKey  sdk.StoreKey // The (unexposed) key used to access the store from the Context.
+	ticketsStoreKey  sdk.StoreKey // The (unexposed) key used to access the store from the Context.
 	ownersStoreKey sdk.StoreKey // The (unexposed) key used to access the store from the Context.
 	pricesStoreKey sdk.StoreKey // The (unexposed) key used to access the store from the Context.
 
 	cdc *codec.Codec // The wire codec for binary encoding/decoding.
 }
 
-func NewKeeper(coinKeeper bank.Keeper, namesStoreKey sdk.StoreKey, ownersStoreKey sdk.StoreKey, priceStoreKey sdk.StoreKey, cdc *codec.Codec) Keeper {
+func NewKeeper(coinKeeper bank.Keeper, ticketsStoreKey sdk.StoreKey, ownersStoreKey sdk.StoreKey, priceStoreKey sdk.StoreKey, cdc *codec.Codec) Keeper {
 	return Keeper{
 		coinKeeper:     coinKeeper,
-		namesStoreKey:  namesStoreKey,
+		ticketsStoreKey:  ticketsStoreKey,
 		ownersStoreKey: ownersStoreKey,
 		pricesStoreKey: priceStoreKey,
 		cdc:            cdc,
@@ -29,14 +29,14 @@ func NewKeeper(coinKeeper bank.Keeper, namesStoreKey sdk.StoreKey, ownersStoreKe
 
 // GetTicket - gets the ticket and its value
 func (k Keeper) ResolveTicket(ctx sdk.Context, ticket string) string {
-	store := ctx.KVStore(k.namesStoreKey)
+	store := ctx.KVStore(k.ticketsStoreKey)
 	bz := store.Get([]byte(ticket))
 	return string(bz)
 }
 
 // SetTicket - sets the ticket and its value
 func (k Keeper) SetTicket(ctx sdk.Context, ticket string, value string) {
-	store := ctx.KVStore(k.namesStoreKey)
+	store := ctx.KVStore(k.ticketsStoreKey)
 	store.Set([]byte(ticket), []byte(value))
 }
 

@@ -12,10 +12,11 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	"github.com/jaybkim1/sdk-nameservice-example/x/ticketservice"
+	"github.com/jaybkim1/sdk-nameservice-example/x/faucet"
 )
 
 const (
-	appName = "Ticket"
+	appName = "TicketApp"
 )
 
 type TicketApp struct {
@@ -66,6 +67,7 @@ func NewTicketApp(logger log.Logger, db dbm.DB) *TicketApp {
 
 	app.Router().
 		AddRoute("ticketservice", ticketservice.NewHandler(app.ticketKeeper)).
+		AddRoute("faucet", faucet.NewHandler(app.bankKeeper)).
 		AddRoute("bank", bank.NewHandler(app.bankKeeper))
 
 	app.QueryRouter().
@@ -115,6 +117,7 @@ func MakeCodec() *codec.Codec {
 	auth.RegisterCodec(cdc)
 	bank.RegisterCodec(cdc)
 	ticketservice.RegisterCodec(cdc)
+	faucet.RegisterCodec(cdc)
 	sdk.RegisterCodec(cdc)
 	codec.RegisterCrypto(cdc)
 	return cdc
