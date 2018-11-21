@@ -12,23 +12,23 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/rpc"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 
-	app "github.com/jaybkim1/sdk-nameservice-example-example/x/ticketservice"
+	app "github.com/jaybkim1/sdk-nameservice-example/x/ticketservice"
 
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
 	ticketservicecmd "github.com/workspace/sdk-nameservice-example/x/ticketservice/client/cli"
 )
 
 const storeAcc = "acc"
-const storeNSnames = "ns_names"
-const storeNSowners = "ns_owners"
-const storeNSprices = "ns_prices"
+const storeTCnames = "tc_tickets"
+const storeTCowners = "tc_owners"
+const storeTCprices = "tc_prices"
 
 var (
 	rootCmd = &cobra.Command{
-		Use:   "nameshakecli",
-		Short: "Nameshake Client",
+		Use:   "ticketcli",
+		Short: "Ticket Client",
 	}
-	DefaultCLIHome = os.ExpandEnv("$HOME/.nameshakecli")
+	DefaultCLIHome = os.ExpandEnv("$HOME/.ticketcli")
 )
 
 func main() {

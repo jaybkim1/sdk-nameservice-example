@@ -11,7 +11,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/jaybkim1/sdk-nameservice-example/x/ticketservice"
+	ticketservice "github.com/jaybkim1/sdk-nameservice-example/x/ticketservice"
 )
 
 const (
@@ -24,13 +24,13 @@ type TicketApp struct {
 
 	keyMain     *sdk.KVStoreKey
 	keyAccount  *sdk.KVStoreKey
-	keyNSnames  *sdk.KVStoreKey
-	keyNSowners *sdk.KVStoreKey
-	keyNSprices *sdk.KVStoreKey
+	keyTCtickets  *sdk.KVStoreKey
+	keyTCowners *sdk.KVStoreKey
+	keyTCprices *sdk.KVStoreKey
 
 	accountMapper auth.AccountMapper
 	bankKeeper    bank.Keeper
-	ticketKeeper      ticketservice.Keeper
+	ticketKeeper  ticketservice.Keeper
 }
 
 func NewTicketApp(logger log.Logger, db dbm.DB) *TicketApp {
@@ -43,9 +43,9 @@ func NewTicketApp(logger log.Logger, db dbm.DB) *TicketApp {
 
 		keyMain:     sdk.NewKVStoreKey("main"),
 		keyAccount:  sdk.NewKVStoreKey("acc"),
-		keyNSnames:  sdk.NewKVStoreKey("ns_names"),
-		keyNSowners: sdk.NewKVStoreKey("ns_owners"),
-		keyNSprices: sdk.NewKVStoreKey("ns_prices"),
+		keyTCtickets:  sdk.NewKVStoreKey("tc_names"),
+		keyTCowners: sdk.NewKVStoreKey("tc_owners"),
+		keyTCprices: sdk.NewKVStoreKey("tc_prices"),
 	}
 
 	app.accountMapper = auth.NewAccountMapper(
@@ -58,9 +58,9 @@ func NewTicketApp(logger log.Logger, db dbm.DB) *TicketApp {
 
 	app.ticketKeeper = ticketservice.NewKeeper(
 		app.bankKeeper,
-		app.keyNSnames,
-		app.keyNSowners,
-		app.keyNSprices,
+		app.keyTCtickets,
+		app.keyTCowners,
+		app.keyTCprices,
 		app.cdc,
 	)
 
@@ -76,9 +76,9 @@ func NewTicketApp(logger log.Logger, db dbm.DB) *TicketApp {
 	app.MountStoresIAVL(
 		app.keyMain,
 		app.keyAccount,
-		app.keyNSnames,
-		app.keyNSowners,
-		app.keyNSprices,
+		app.keyTCtickets,
+		app.keyTCowners,
+		app.keyTCprices,
 	)
 
 	err := app.LoadLatestVersion(app.keyMain)
@@ -114,7 +114,7 @@ func MakeCodec() *codec.Codec {
 	var cdc = codec.New()
 	auth.RegisterCodec(cdc)
 	bank.RegisterCodec(cdc)
-	nameservice.RegisterCodec(cdc)
+	ticketservice.RegisterCodec(cdc)
 	sdk.RegisterCodec(cdc)
 	codec.RegisterCrypto(cdc)
 	return cdc

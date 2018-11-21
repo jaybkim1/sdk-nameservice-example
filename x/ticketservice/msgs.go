@@ -1,4 +1,4 @@
-package nameservice
+package ticketservice
 
 import (
 	"encoding/json"

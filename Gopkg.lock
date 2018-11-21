@@ -180,6 +180,12 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/jaybkim1/sdk-nameservice-example"
+  packages = ["x/ticketservice"]
+  revision = "c475cf732211f50372247fb0a8900871aad21681"
+
+[[projects]]
+  branch = "master"
   name = "github.com/jmhodges/levigo"
   packages = ["."]
   revision = "c42d9e0ca023e2198120196f842701bb4c55d7b9"
@@ -558,6 +564,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "976f811a04c5eecbcaa3b2d91e6856a3192975f40c4d40bddef3cf3dc402be7f"
+  inputs-digest = "d39dfc1353cc47910b8595c9a8bc723effb0910f1e47f9680b527f30cc37939d"
   solver-name = "gps-cdcl"
   solver-version = 1

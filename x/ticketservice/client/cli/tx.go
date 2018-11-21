@@ -9,7 +9,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
 
-	"github.com/workspace/sdk-nameservice-example/x/ticketservice"
+	"github.com/jaybkim1/sdk-nameservice-example/x/ticketservice"
 )
 
 const (
@@ -32,7 +32,7 @@ func GetCmdBuyTicket(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			name := args[0]
+			ticket := args[0]
 
 			amount := args[1]
 			coins, err := sdk.ParseCoins(amount)
