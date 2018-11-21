@@ -11,8 +11,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/jaybkim1/sdk-nameservice-example/x/ticketservice"
 	"github.com/jaybkim1/sdk-nameservice-example/x/faucet"
+	"github.com/jaybkim1/sdk-nameservice-example/x/ticketservice"
 )
 
 const (
@@ -23,11 +23,11 @@ type TicketApp struct {
 	*bam.BaseApp
 	cdc *codec.Codec
 
-	keyMain     *sdk.KVStoreKey
-	keyAccount  *sdk.KVStoreKey
-	keyTCtickets  *sdk.KVStoreKey
-	keyTCowners *sdk.KVStoreKey
-	keyTCprices *sdk.KVStoreKey
+	keyMain      *sdk.KVStoreKey
+	keyAccount   *sdk.KVStoreKey
+	keyTCtickets *sdk.KVStoreKey
+	keyTCowners  *sdk.KVStoreKey
+	keyTCprices  *sdk.KVStoreKey
 
 	accountMapper auth.AccountMapper
 	bankKeeper    bank.Keeper
@@ -42,21 +42,24 @@ func NewTicketApp(logger log.Logger, db dbm.DB) *TicketApp {
 		BaseApp: bApp,
 		cdc:     cdc,
 
-		keyMain:     sdk.NewKVStoreKey("main"),
-		keyAccount:  sdk.NewKVStoreKey("acc"),
-		keyTCtickets:  sdk.NewKVStoreKey("tc_names"),
-		keyTCowners: sdk.NewKVStoreKey("tc_owners"),
-		keyTCprices: sdk.NewKVStoreKey("tc_prices"),
+		keyMain:      sdk.NewKVStoreKey("main"),
+		keyAccount:   sdk.NewKVStoreKey("acc"),
+		keyTCtickets: sdk.NewKVStoreKey("tc_tickets"),
+		keyTCowners:  sdk.NewKVStoreKey("tc_owners"),
+		keyTCprices:  sdk.NewKVStoreKey("tc_prices"),
 	}
 
+	// AccountKeeper (cosmos-sdk v0.26.1 NewAccountMapper's name changed to NewAccountKeeper in keeper.go)
 	app.accountMapper = auth.NewAccountMapper(
 		app.cdc,
 		app.keyAccount,
 		auth.ProtoBaseAccount,
 	)
 
+	// BankKeeper
 	app.bankKeeper = bank.NewBaseKeeper(app.accountMapper)
 
+	// TicketKeepr that I created
 	app.ticketKeeper = ticketservice.NewKeeper(
 		app.bankKeeper,
 		app.keyTCtickets,

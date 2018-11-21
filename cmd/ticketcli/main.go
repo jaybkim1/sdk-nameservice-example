@@ -12,9 +12,9 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/rpc"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 
-	app "github.com/jaybkim1/sdk-nameservice-example"
-
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
+
+	app "github.com/jaybkim1/sdk-nameservice-example"
 	faucetcmd "github.com/jaybkim1/sdk-nameservice-example/x/faucet/client/cli"
 	ticketservicecmd "github.com/jaybkim1/sdk-nameservice-example/x/ticketservice/client/cli"
 )
@@ -24,6 +24,7 @@ const storeTCnames = "tc_tickets"
 const storeTCowners = "tc_owners"
 const storeTCprices = "tc_prices"
 
+// Create "ticketcli" executable file under $HOME directory
 var (
 	rootCmd = &cobra.Command{
 		Use:   "ticketcli",
@@ -37,8 +38,11 @@ func main() {
 	cdc := app.MakeCodec()
 
 	rootCmd.AddCommand(client.ConfigCmd())
+
+	// Add standard rpc commands
 	rpc.AddCommands(rootCmd)
 
+	// Define query command
 	queryCmd := &cobra.Command{
 		Use:     "query",
 		Aliases: []string{"q"},
@@ -50,6 +54,8 @@ func main() {
 		rpc.ValidatorCommand(),
 	)
 	tx.AddCommands(queryCmd, cdc)
+
+	// query > account, resolve, whois command
 	queryCmd.AddCommand(client.LineBreak)
 	queryCmd.AddCommand(client.GetCommands(
 		authcmd.GetAccountCmd(storeAcc, cdc, authcmd.GetAccountDecoder(cdc)),
@@ -57,17 +63,21 @@ func main() {
 		ticketservicecmd.GetCmdWhois("ticketservice", cdc),
 	)...)
 
+	// Define tx command
 	txCmd := &cobra.Command{
-		Use:   "tx",
-		Short: "Transactions subcommands",
+		Use:     "tx",
+		Aliases: []string{"t"},
+		Short:   "Transactions subcommands",
 	}
 
+	// tx > get-ticket, set-ticket, request-coins
 	txCmd.AddCommand(client.PostCommands(
 		ticketservicecmd.GetCmdBuyTicket(cdc),
 		ticketservicecmd.GetCmdSetTicket(cdc),
 		faucetcmd.GetCmdRequestCoins(cdc),
 	)...)
 
+	// queryCmd, tmCmd, LineBreak
 	rootCmd.AddCommand(
 		queryCmd,
 		txCmd,

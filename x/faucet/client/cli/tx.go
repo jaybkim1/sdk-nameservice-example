@@ -17,6 +17,7 @@ const (
 	flagAmount = "amount"
 )
 
+// GetCmdRequestCoins returns amount of coins to client
 func GetCmdRequestCoins(cdc *codec.Codec) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "request-coins",
