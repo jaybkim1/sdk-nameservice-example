@@ -65,6 +65,7 @@ func main() {
 	txCmd.AddCommand(client.PostCommands(
 		ticketservicecmd.GetCmdBuyTicket(cdc),
 		ticketservicecmd.GetCmdSetTicket(cdc),
+		faucetcmd.GetCmdRequestCoins(cdc),
 	)...)
 
 	rootCmd.AddCommand(

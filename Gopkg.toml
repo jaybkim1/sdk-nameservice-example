@@ -50,11 +50,3 @@
 [prune]
   go-tests = true
   unused-packages = true
-
-[[constraint]]
-  branch = "master"
-  name = "github.com/jaybkim1/sdk-nameservice-example"
-
-[[constraint]]
-  branch = "master"
-  name = "github.com/jaybkim1/sdk-nameservice-example.git"

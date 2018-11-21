@@ -184,9 +184,11 @@
   packages = [
     ".",
     "x/faucet",
-    "x/ticketservice"
+    "x/faucet/client/cli",
+    "x/ticketservice",
+    "x/ticketservice/client/cli"
   ]
-  revision = "71efb39b8e7add4c423c48d65f75f802255e4c04"
+  revision = "362a555fd8ef63a7d4ad684308511bb3c2651f99"
 
 [[projects]]
   branch = "master"
@@ -568,6 +570,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "710892ff636c8026541661254ea9f70c24eba0cb96e04d3e41130e6b83e4b41e"
+  inputs-digest = "d720902da7936a322d8728be42adc6c546549ec070a473eedfc317faca8e8c6f"
   solver-name = "gps-cdcl"
   solver-version = 1
