@@ -15,7 +15,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/server"
 
-	app "github.com/jaybkim1/sdk-nameservice-example/x/ticketservice"
+	app "github.com/jaybkim1/sdk-nameservice-example"
 
 )
 

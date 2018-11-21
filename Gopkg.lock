@@ -181,8 +181,11 @@
 [[projects]]
   branch = "master"
   name = "github.com/jaybkim1/sdk-nameservice-example"
-  packages = ["x/ticketservice"]
-  revision = "c475cf732211f50372247fb0a8900871aad21681"
+  packages = [
+    ".",
+    "x/ticketservice"
+  ]
+  revision = "17a285c7121aecc6f10bc3de92947542fc8c087a"
 
 [[projects]]
   branch = "master"
@@ -564,6 +567,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "d39dfc1353cc47910b8595c9a8bc723effb0910f1e47f9680b527f30cc37939d"
+  inputs-digest = "adaa18e093e6bcec1540d036a955c021b804b25da99bb3c394af5fb6a923c5ba"
   solver-name = "gps-cdcl"
   solver-version = 1

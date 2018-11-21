@@ -11,7 +11,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/bank"
-	ticketservice "github.com/jaybkim1/sdk-nameservice-example/x/ticketservice"
+	"github.com/jaybkim1/sdk-nameservice-example/x/ticketservice"
 )
 
 const (
